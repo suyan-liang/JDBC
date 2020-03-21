@@ -128,6 +128,7 @@ public class _3selectdemo {
         PreparedStatement ps= null;
         ResultSet rs= null;
         List<Customer> list= null;
+
         try {
             connection = myJDBC.getConnection();
             ps = connection.prepareStatement(sql);
