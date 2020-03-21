@@ -1,0 +1,15 @@
+JDBC  Java  Database Connectivity
+数据库连接技术
+
+java.sql
+javax.sql
+
+
+
+Java应用程序调用JDBC接口
+JDBC再操作实现了JDBC接口的数据库
+这样Java程序员不需要关注数据库的类型是MySQL，oracle还是什么，直接调用JDBC即可
+更加细节的事情交给JDBC去做了。
+
+即Java程序员只需面向JDBC接口编程，不同的数据库厂商需要针对这套接口提供不同的实现即为不同数据库的驱动
+
