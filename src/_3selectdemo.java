@@ -108,6 +108,16 @@ class Customer{
     public void setBirth(Date date) {
         this.birth = date;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", birth=" + birth +
+                '}';
+    }
 }
 public class _3selectdemo {
     public static void main(String[] args) {

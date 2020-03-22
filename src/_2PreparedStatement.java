@@ -22,7 +22,19 @@ import java.util.Properties;
  *
  * Statement会把传进来的东西都当成SQL语句来执行
  * PreparedStatement可以把需要传进来的东西放上问号，问号里面的都会当做字符串处理，不会去执行
+ * 称之为SQL注入问题
+ * PreparedStatement是一个预编译的SQL语句，逻辑关系已经确定，所以填入的数据都会被当成字符串来处理
  *
+ * 除了解决statement的拼串和SQL注入问题，
+ * PreparedStatement还可以操作Blob类型的数据，而Statement不行
+ * PreparedStatement可以实现更高效的批量操作，比如在插入的时候，Statement需要一条一条校验，而PreparedStatement只需一次，其他填充占位符即可
+ *
+ *
+ * execute函数返回boolean
+ * 如果执行的是查询操作且有返回结果则返回true，如果是增删改操作则返回false
+ *
+ * executeUpdate返回int  即增删改操作影响的行数
+ * 所以，如果是大于0的话就是修改成功，否则修改失败
  *
  */
 public class _2PreparedStatement {
