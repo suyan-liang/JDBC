@@ -22,6 +22,10 @@ import java.util.Properties;
  *
  * Statement会把传进来的东西都当成SQL语句来执行
  * PreparedStatement可以把需要传进来的东西放上问号，问号里面的都会当做字符串处理，不会去执行
+ * 预编译，而且编译后会缓存下来，下次再用的时候就不用再次编译
+ * 而Statement每次都要编译，检查，而前者只进行一次
+ *
+ *
  * 称之为SQL注入问题
  * PreparedStatement是一个预编译的SQL语句，逻辑关系已经确定，所以填入的数据都会被当成字符串来处理
  *
