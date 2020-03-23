@@ -37,7 +37,7 @@ public class _7transaction {
         Connection connection=myJDBC.getConnection();
 
         String sql="select user,password,balance from user_table where user=?";
-        List<User> list=myCRUD.Select_nocommit(connection,User.class,sql,"CC");
+        List<User> list= BaseDAO.Select_nocommit(connection,User.class,sql,"CC");
         show_ans(list);
     }
 
@@ -64,9 +64,9 @@ public class _7transaction {
             String sql2="update user_table set balance = ? where user=?";
             connection = myJDBC.getConnection();
             connection.setAutoCommit(false);
-            myCRUD.update_nocommit(connection,sql1,900,"AA");
+            BaseDAO.update_nocommit(connection,sql1,900,"AA");
             System.out.println(10/0);
-            myCRUD.update_nocommit(connection,sql2,1100,"BB");
+            BaseDAO.update_nocommit(connection,sql2,1100,"BB");
             connection.commit();
             System.out.println("转账成功");
         } catch (Exception e) {
@@ -95,10 +95,10 @@ public class _7transaction {
         //在user_table表中，AA转给BB100元
         String sql1="update user_table set balance = ? where user=?";
         String sql2="update user_table set balance = ? where user=?";
-        myCRUD.update_commitnow(sql1,900,"AA");
+        BaseDAO.update_commitnow(sql1,900,"AA");
         //模拟异常
         System.out.println(10/0);
-        myCRUD.update_commitnow(sql2,1100,"BB");
+        BaseDAO.update_commitnow(sql2,1100,"BB");
     }
 
 }

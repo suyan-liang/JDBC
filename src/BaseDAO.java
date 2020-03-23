@@ -1,8 +1,5 @@
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +13,12 @@ import java.util.List;
  *
  *
  * 增删改查的一个工具类
+ * 修饰成抽象类表示不能实例化
+ *
+ *
+ * 实际上BaseDAO里面的方法不是静态方法，这里原来是为了方便操作写的工具类临时改的，正式的BaseDAO参见_11
  */
-public class myCRUD {
+public abstract class BaseDAO {
     /**
      * 操作后直接commit的增删改操作
      * @param sql 要执行的SQL语句
@@ -154,4 +155,42 @@ public class myCRUD {
         return list;
     }
 
+    /**
+     * 查询结果为单列查询，且考虑事务，不进行commit
+     * @param connection 连接
+     * @param sql   sql语句，查询的结果没有确定的结果类
+     * @param args  填补
+     * @param <E>   返回结果的类型
+     * @return 返回含有结果的一个list
+     */
+    public static <E> List<E> Select_value(Connection connection,String sql,Object ...args) {
+        PreparedStatement ps= null;
+        ResultSet rs= null;
+        List<E> list=new ArrayList<>();
+        try {
+            ps = connection.prepareStatement(sql);
+            for (int i = 0; i <args.length ; i++) {
+                ps.setObject(i+1,args[i]);
+            }
+            rs = ps.executeQuery();
+            while (rs.next()){
+                E e = (E) rs.getObject(1);
+                list.add(e);
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            myJDBC.closeSources(null,ps,rs);
+        }
+        return null;
+    }
+    /**
+     * 展示list中的数据
+     */
+    public static <T> void show_list(List<T> list){
+        for (T t : list) {
+            System.out.println(t.toString());
+        }
+    }
 }
